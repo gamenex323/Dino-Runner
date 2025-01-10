@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using DG.Tweening;
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
@@ -154,6 +154,7 @@ public class Player : MonoBehaviour
             }
             else
             {
+                ShakeCamera();
                 // Trigger Game Over
                 //GameManager.Instance.GameOver();
                 TakeDamage(1);
@@ -180,7 +181,11 @@ public class Player : MonoBehaviour
         //    Destroy(other.gameObject); // Remove the powerup from the scene
         //}
     }
-
+    public void ShakeCamera(float duration = 0.5f, float strength = 1f, int vibrato = 10, float randomness = 90f)
+    {
+        // Shake the camera using DoTween
+        Camera.main.transform.DOShakePosition(duration, strength, vibrato, randomness);
+    }
     // Enable Shield
     public void EnableShield()
     {

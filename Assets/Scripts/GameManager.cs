@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     private float speedBoostTimer;
     private float shieldTimer;
     private float doubleJumpTimer;
-
+    [SerializeField] GameObject [] Maps;
     private void Awake()
     {
         if (Instance != null)
@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
+        DG.Tweening.DOVirtual.DelayedCall(25, () => UpdateMap());
         GameOverPanel.SetActive(false);
 
         player.Jumper.SetActive(false);
@@ -123,10 +124,28 @@ public class GameManager : MonoBehaviour
         score += gameSpeed * Time.deltaTime;
         scoreText.text = Mathf.FloorToInt(score).ToString("D5");
         scoreGameOverText.text = Mathf.FloorToInt(score).ToString("D5");
+        
         // Handle powerup timers
         HandlePowerupTimers();
     }
-
+    int j = 0;
+    void UpdateMap()
+    {
+        //if (score % 100 == 0)
+        {
+            for (int i = 0; i < Maps.Length; i++)
+            {
+                Maps[i].SetActive(false);
+            }
+            if(j >= Maps.Length)
+            {
+                j = 0;
+            }
+            Maps[j].SetActive(true);
+            j++;
+        }
+        DG.Tweening.DOVirtual.DelayedCall(25, () => UpdateMap());
+    }
     private void UpdateHiscore()
     {
         float hiscore = PlayerPrefs.GetFloat("hiscore", 0);
