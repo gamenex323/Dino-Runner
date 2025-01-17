@@ -13,7 +13,8 @@ public class Obstacle : MonoBehaviour
     {
         transform.position += GameManager.Instance.gameSpeed * Time.deltaTime * Vector3.left;
 
-        if (transform.position.x < leftEdge) {
+        if (transform.position.x < leftEdge)
+        {
             Destroy(gameObject);
         }
     }

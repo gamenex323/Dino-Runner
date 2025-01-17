@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 [DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
@@ -10,10 +11,14 @@ public class GameManager : MonoBehaviour
 
     public float initialGameSpeed = 5f;
     public float gameSpeedIncrease = 0.1f;
+    public static int totalCoins = 0;
+    public int inGameCoins = 0;
     public float gameSpeed { get; private set; }
 
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] public TextMeshProUGUI coinsText;
     [SerializeField] private TextMeshProUGUI scoreGameOverText;
+    [SerializeField] private TextMeshProUGUI coinsGameOverText;
     [SerializeField] private TextMeshProUGUI hiscoreText;
     [SerializeField] private TextMeshProUGUI gameOverText;
     //[SerializeField] private Button retryButton;
@@ -39,9 +44,62 @@ public class GameManager : MonoBehaviour
     private float speedBoostTimer;
     private float shieldTimer;
     private float doubleJumpTimer;
-    [SerializeField] GameObject [] Maps;
+    [SerializeField] GameObject[] Maps;
+
+
+    public Transform targetPosition;    // Target position in the scene
+    public float moveDuration = 1f;     // Duration of the movement
+
+    //PowerUps
+    public TextMeshProUGUI shieldAmount;
+    public TextMeshProUGUI doubleJumpAmount;
+    public TextMeshProUGUI runFastAmount;
+
+    public void SetShield(int amount)
+    {
+        PlayerPrefs.SetInt("Shield", PlayerPrefs.GetInt("Shield") + amount);
+
+        shieldAmount.text = GetShield().ToString();
+    }
+    public int GetShield()
+    {
+        return PlayerPrefs.GetInt("Shield");
+    }
+
+    public void SetJump(int amount)
+    {
+        PlayerPrefs.SetInt("Jump", PlayerPrefs.GetInt("Jump") + amount);
+        doubleJumpAmount.text = GetJump().ToString();
+    }
+    public int GetJump()
+    {
+        return PlayerPrefs.GetInt("Jump");
+    }
+
+
+
+    public void SetRunFast(int amount)
+    {
+        PlayerPrefs.SetInt("RunFast", PlayerPrefs.GetInt("RunFast") + amount);
+        runFastAmount.text = GetRunFast().ToString();
+    }
+    public int GetRunFast()
+    {
+        return PlayerPrefs.GetInt("RunFast");
+    }
+
+
+    public void MoveSprite(SpriteRenderer spriteToMove)
+    {
+        spriteToMove.transform.DOMove(targetPosition.position, moveDuration)
+                               .SetEase(Ease.InOutQuad);
+    }
     private void Awake()
     {
+        SetCoins(PlayerPrefs.GetInt("Coins"));
+        SetShield(GetShield());
+        SetJump(GetJump());
+        SetRunFast(GetRunFast());
         if (Instance != null)
         {
             DestroyImmediate(gameObject);
@@ -83,7 +141,7 @@ public class GameManager : MonoBehaviour
 
         player.Booster.SetActive(false);
         isSpeedBoostActive = false;
-        
+
         Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
 
         foreach (var obstacle in obstacles)
@@ -99,7 +157,7 @@ public class GameManager : MonoBehaviour
         spawner.gameObject.SetActive(true);
         gameOverText.gameObject.SetActive(false);
         //retryButton.gameObject.SetActive(false);
-
+        inGameCoins = 0;
         UpdateHiscore();
     }
 
@@ -108,6 +166,7 @@ public class GameManager : MonoBehaviour
         gameSpeed = 0f;
         enabled = false;
 
+        coinsGameOverText.text = inGameCoins.ToString();
         player.gameObject.SetActive(false);
         spawner.gameObject.SetActive(false);
         GameOverPanel.SetActive(true);
@@ -119,12 +178,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(!isSpeedBoostActive)
+        if (!isSpeedBoostActive)
             gameSpeed += gameSpeedIncrease * Time.deltaTime;
         score += gameSpeed * Time.deltaTime;
         scoreText.text = Mathf.FloorToInt(score).ToString("D5");
         scoreGameOverText.text = Mathf.FloorToInt(score).ToString("D5");
-        
+
         // Handle powerup timers
         HandlePowerupTimers();
     }
@@ -137,7 +196,7 @@ public class GameManager : MonoBehaviour
             {
                 Maps[i].SetActive(false);
             }
-            if(j >= Maps.Length)
+            if (j >= Maps.Length)
             {
                 j = 0;
             }
@@ -200,8 +259,9 @@ public class GameManager : MonoBehaviour
     // Speed Boost Powerup
     public void ActivateSpeedBoost()
     {
-        if (!isSpeedBoostActive)
+        if (!isSpeedBoostActive && GetRunFast() > 0)
         {
+            SetRunFast(-1);
             isSpeedBoostActive = true;
             player.Booster.SetActive(true);
             speedBoostTimer = speedBoostDuration;
@@ -212,8 +272,9 @@ public class GameManager : MonoBehaviour
     // Shield Powerup
     public void ActivateShield()
     {
-        if (!isShieldActive)
+        if (!isShieldActive && GetShield() > 0)
         {
+            SetShield(-1);
             isShieldActive = true;
             player.Shield.SetActive(true);
             shieldTimer = shieldDuration;
@@ -224,8 +285,9 @@ public class GameManager : MonoBehaviour
     // Double Jump Powerup
     public void ActivateDoubleJump()
     {
-        if (!isDoubleJumpActive)
+        if (!isDoubleJumpActive && GetJump() > 0)
         {
+            SetJump(-1);
             isDoubleJumpActive = true;
             player.Jumper.SetActive(true);
             doubleJumpTimer = doubleJumpDuration;
@@ -250,14 +312,35 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void OnClickPause() 
+    public void OnClickPause()
     {
         Time.timeScale = 0;
         GamePausePanel.SetActive(true);
     }
 
-    public void OnClickResume() {
+    public void OnClickResume()
+    {
         Time.timeScale = 1;
         GamePausePanel.SetActive(true);
+    }
+
+    public void SetCoins(int amount, SpriteRenderer coinSpriteS = null)
+    {
+        if (coinSpriteS)
+        {
+            MoveSprite(coinSpriteS);
+            inGameCoins++;
+
+        }
+        else
+        {
+
+        }
+        totalCoins += amount;
+        PlayerPrefs.SetInt("Coins", totalCoins);
+        coinsText.text = totalCoins.ToString();
+
+
+
     }
 }

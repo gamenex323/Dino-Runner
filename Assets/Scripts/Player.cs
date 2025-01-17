@@ -160,6 +160,12 @@ public class Player : MonoBehaviour
                 TakeDamage(1);
             }
         }
+        if (other.CompareTag("Coins"))
+        {
+            other.GetComponent<AudioSource>().Play();
+            GameManager.Instance.SetCoins(1, other.GetComponent<SpriteRenderer>());
+        }
+
 
         // Handle picking up powerups
         //if (other.CompareTag("Powerup"))

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
@@ -13,12 +14,19 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject MainMenu;
     [SerializeField] GameObject Setting;
     [SerializeField] GameObject Leaderboard;
+    public TextMeshProUGUI shieldAmount;
+    public TextMeshProUGUI jumpAmount;
+    public TextMeshProUGUI rumFastAmount;
+    public GameObject noCoinsWarning;
     //[SerializeField] GameObject GamePlay;
     //[SerializeField] GameObject Pause;
     //[SerializeField] public GameObject GameOver;
     public static MenuManager Instance { get; private set; }
     private void Awake()
     {
+        shieldAmount.text = PlayerPrefs.GetInt("Shield").ToString();
+        rumFastAmount.text = PlayerPrefs.GetInt("RunFast").ToString();
+        jumpAmount.text = PlayerPrefs.GetInt("Jump").ToString();
         if (Instance != null)
         {
             DestroyImmediate(gameObject);
@@ -30,7 +38,7 @@ public class MenuManager : MonoBehaviour
     }
     private void Start()
     {
-        if(PlayerPrefs.GetInt("FirstRun") == 0)
+        if (PlayerPrefs.GetInt("FirstRun") == 0)
         {
             PlayerPrefs.SetInt("FirstRun", 1);
             PlayerPrefs.SetFloat("Music", 1);
@@ -68,8 +76,55 @@ public class MenuManager : MonoBehaviour
     {
         PlayClickSound();
         Leaderboard.SetActive(false);
-        Setting.SetActive(false);  
+        Setting.SetActive(false);
         MainMenu.SetActive(true);
+    }
+
+    public void BuyShield(int withCoins)
+    {
+        if (PlayerPrefs.GetInt("Coins") >= withCoins)
+        {
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - withCoins);
+            PlayerPrefs.SetInt("Shield", PlayerPrefs.GetInt("Shield") + 1);
+            shieldAmount.text = PlayerPrefs.GetInt("Shield").ToString();
+
+        }
+        else
+        {
+            noCoinsWarning.SetActive(true);
+            DG.Tweening.DOVirtual.DelayedCall(2f, () => noCoinsWarning.SetActive(false));
+        }
+    }
+    public void BuyJump(int withCoins)
+    {
+        if (PlayerPrefs.GetInt("Coins") >= withCoins)
+        {
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - withCoins);
+            PlayerPrefs.SetInt("Jump", PlayerPrefs.GetInt("Jump") + 1);
+            jumpAmount.text = PlayerPrefs.GetInt("Jump").ToString();
+
+
+        }
+        else
+        {
+            noCoinsWarning.SetActive(true);
+            DG.Tweening.DOVirtual.DelayedCall(2f, () => noCoinsWarning.SetActive(false));
+        }
+    }
+    public void BuyBoost(int withCoins)
+    {
+        if (PlayerPrefs.GetInt("Coins") >= withCoins)
+        {
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - withCoins);
+            PlayerPrefs.SetInt("RunFast", PlayerPrefs.GetInt("RunFast") + 1);
+            rumFastAmount.text = PlayerPrefs.GetInt("RunFast").ToString();
+
+        }
+        else
+        {
+            noCoinsWarning.SetActive(true);
+            DG.Tweening.DOVirtual.DelayedCall(2f, () => noCoinsWarning.SetActive(false));
+        }
     }
 
     #region Setting Functions
