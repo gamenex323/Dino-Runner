@@ -97,9 +97,9 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         SetCoins(PlayerPrefs.GetInt("Coins"));
-        SetShield(GetShield());
-        SetJump(GetJump());
-        SetRunFast(GetRunFast());
+        SetShield(0);
+        SetJump(0);
+        SetRunFast(0);
         if (Instance != null)
         {
             DestroyImmediate(gameObject);
