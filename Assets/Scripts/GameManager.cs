@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     public float initialGameSpeed = 5f;
     public float gameSpeedIncrease = 0.1f;
-    public static int totalCoins = 0;
+    public int totalCoins = 0;
     public int inGameCoins = 0;
     public float gameSpeed { get; private set; }
 
@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] healthIcons;
     [SerializeField] private GameObject GameOverPanel;
     [SerializeField] private GameObject GamePausePanel;
+    [SerializeField] private GameObject fadeScreen;
 
     private Player player;
     private Spawner spawner;
@@ -54,7 +55,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI shieldAmount;
     public TextMeshProUGUI doubleJumpAmount;
     public TextMeshProUGUI runFastAmount;
-
+    public AudioSource hitAudio;
     public void SetShield(int amount)
     {
         PlayerPrefs.SetInt("Shield", PlayerPrefs.GetInt("Shield") + amount);
@@ -188,8 +189,9 @@ public class GameManager : MonoBehaviour
         HandlePowerupTimers();
     }
     int j = 0;
-    void UpdateMap()
+    public void UpdateTheMap()
     {
+
         //if (score % 100 == 0)
         {
             for (int i = 0; i < Maps.Length; i++)
@@ -204,6 +206,10 @@ public class GameManager : MonoBehaviour
             j++;
         }
         DG.Tweening.DOVirtual.DelayedCall(25, () => UpdateMap());
+    }
+    void UpdateMap()
+    {
+        fadeScreen.SetActive(true);
     }
     private void UpdateHiscore()
     {

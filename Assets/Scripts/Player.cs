@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     private Vector2 swipeStartPosition;
     private Vector2 swipeEndPosition;
     private const float SWIPE_THRESHOLD = 50f; // Minimum swipe distance for detection
+    public bool isStop;
     //private float platformYPosition; // Store the player's current platform Y position
     private void Awake()
     {
@@ -46,6 +47,8 @@ public class Player : MonoBehaviour
     private void Update()
     {
         // Handle dodge duration
+        if (isStop)
+            return;
         if (isDodging)
         {
             dodgeTimer -= Time.deltaTime;
@@ -147,6 +150,7 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag("Obstacle"))
         {
+            AudioManager.instance.HitSound();
             if (isShieldActive)
             {
                 // Destroy obstacle if shield is active

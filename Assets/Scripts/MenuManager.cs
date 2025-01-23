@@ -17,6 +17,7 @@ public class MenuManager : MonoBehaviour
     public TextMeshProUGUI shieldAmount;
     public TextMeshProUGUI jumpAmount;
     public TextMeshProUGUI rumFastAmount;
+    public TextMeshProUGUI coins;
     public GameObject noCoinsWarning;
     //[SerializeField] GameObject GamePlay;
     //[SerializeField] GameObject Pause;
@@ -27,6 +28,7 @@ public class MenuManager : MonoBehaviour
         shieldAmount.text = PlayerPrefs.GetInt("Shield").ToString();
         rumFastAmount.text = PlayerPrefs.GetInt("RunFast").ToString();
         jumpAmount.text = PlayerPrefs.GetInt("Jump").ToString();
+        coins.text = PlayerPrefs.GetInt("Coins").ToString();
         if (Instance != null)
         {
             DestroyImmediate(gameObject);
@@ -85,6 +87,8 @@ public class MenuManager : MonoBehaviour
         if (PlayerPrefs.GetInt("Coins") >= withCoins)
         {
             PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - withCoins);
+            coins.text = PlayerPrefs.GetInt("Coins").ToString();
+
             PlayerPrefs.SetInt("Shield", PlayerPrefs.GetInt("Shield") + 1);
             shieldAmount.text = PlayerPrefs.GetInt("Shield").ToString();
 
@@ -100,6 +104,8 @@ public class MenuManager : MonoBehaviour
         if (PlayerPrefs.GetInt("Coins") >= withCoins)
         {
             PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - withCoins);
+            coins.text = PlayerPrefs.GetInt("Coins").ToString();
+
             PlayerPrefs.SetInt("Jump", PlayerPrefs.GetInt("Jump") + 1);
             jumpAmount.text = PlayerPrefs.GetInt("Jump").ToString();
 
@@ -116,6 +122,8 @@ public class MenuManager : MonoBehaviour
         if (PlayerPrefs.GetInt("Coins") >= withCoins)
         {
             PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - withCoins);
+            coins.text = PlayerPrefs.GetInt("Coins").ToString();
+
             PlayerPrefs.SetInt("RunFast", PlayerPrefs.GetInt("RunFast") + 1);
             rumFastAmount.text = PlayerPrefs.GetInt("RunFast").ToString();
 
@@ -131,17 +139,15 @@ public class MenuManager : MonoBehaviour
     [Header("Setting Sliders")]
     [Space(3)]
     [SerializeField] Slider MusicSlider;
-    [SerializeField] AudioSource MusicSource;
     [SerializeField] Slider SoundSlider;
-    [SerializeField] AudioSource SoundSource;
     public void OnChangeMusic(float value)
     {
-        MusicSource.volume = value;
+        AudioManager.instance.bgm.volume = value;
         PlayerPrefs.SetFloat("Music", value);
     }
     public void OnChangeSound(float value)
     {
-        SoundSource.volume = value;
+        AudioManager.instance.buttonSound.volume = value;
         PlayerPrefs.SetFloat("Sound", value);
     }
     public void LoadMusicAndSound()
@@ -151,7 +157,7 @@ public class MenuManager : MonoBehaviour
     }
     public void PlayClickSound()
     {
-        SoundSource.Play();
+        AudioManager.instance.buttonSound.Play();
     }
     #endregion
 }
