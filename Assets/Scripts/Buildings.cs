@@ -8,6 +8,13 @@ public class Buildings : MonoBehaviour
 
     private void Update()
     {
+        if (Player.instance)
+        {
+            if (Player.instance.isStop)
+            {
+                return;
+            }
+        }
         // Move the building based on the game speed
         float speed = GameManager.Instance.gameSpeed * speedMultiplier;
         transform.position += speed * Time.deltaTime * Vector3.left;

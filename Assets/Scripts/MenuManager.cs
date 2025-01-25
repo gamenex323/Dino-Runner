@@ -149,6 +149,7 @@ public class MenuManager : MonoBehaviour
     {
         AudioManager.instance.buttonSound.volume = value;
         PlayerPrefs.SetFloat("Sound", value);
+        //jioj
     }
     public void LoadMusicAndSound()
     {

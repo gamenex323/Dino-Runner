@@ -13,8 +13,16 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         if (!instance)
+        {
             instance = this;
-        DontDestroyOnLoad(this);
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        SetAudio();
+
     }
 
     // Update is called once per frame

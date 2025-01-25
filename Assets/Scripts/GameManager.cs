@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
+        Time.timeScale = 1;
         DG.Tweening.DOVirtual.DelayedCall(25, () => UpdateMap());
         GameOverPanel.SetActive(false);
 
@@ -317,6 +318,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+    public void OnPauseRestart()
+    {
+        SceneManager.LoadScene(1);
+    }
 
     public void OnClickPause()
     {
@@ -327,7 +332,7 @@ public class GameManager : MonoBehaviour
     public void OnClickResume()
     {
         Time.timeScale = 1;
-        GamePausePanel.SetActive(true);
+        GamePausePanel.SetActive(false);
     }
 
     public void SetCoins(int amount, SpriteRenderer coinSpriteS = null)

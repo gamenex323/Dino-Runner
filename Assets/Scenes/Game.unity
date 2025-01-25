@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -902,8 +901,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hurdleObjects:
-  - prefab: {fileID: 9020847862631447337, guid: 0335ee96773488e48b0e92901cc85500, type: 3}
-    spawnChance: 0.16
+  - prefab: {fileID: 9020847862631447337, guid: f3d88a8f083bb864b89f1261f939a260, type: 3}
+    spawnChance: 0.1
   - prefab: {fileID: 3554295633068608032, guid: abdeacf971322224b96ec164fe0aa8e6, type: 3}
     spawnChance: 0.15
   - prefab: {fileID: 9111235999010403720, guid: c998f96c05d59704c9d875ab724990e2, type: 3}
@@ -2917,7 +2916,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1501353566}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: NewGame
+        m_MethodName: OnPauseRestart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8990,8 +8989,20 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1501353566}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: NewGame
+        m_MethodName: OnPauseRestart
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 699220784}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -5,6 +5,7 @@ public class Obstacle : MonoBehaviour
     private float leftEdge;
     public bool isPlatform;
     public GameObject platform;
+    private bool obstacleDestroyCall = false;
 
     private void OnEnable()
     {
@@ -29,11 +30,32 @@ public class Obstacle : MonoBehaviour
 
     private void Update()
     {
+        if (Player.instance)
+        {
+            if (Player.instance.isStop)
+            {
+                return;
+            }
+        }
+
         transform.position += GameManager.Instance.gameSpeed * Time.deltaTime * Vector3.left;
 
         if (transform.position.x < leftEdge)
         {
-            Destroy(gameObject);
+           
+            if (!obstacleDestroyCall)
+            {
+                obstacleDestroyCall = true;
+                if (isPlatform)
+                {
+                    DG.Tweening.DOVirtual.DelayedCall(1f, () => Destroy(gameObject));
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
+            }
+            
         }
     }
 

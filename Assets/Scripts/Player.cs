@@ -30,9 +30,13 @@ public class Player : MonoBehaviour
     private const float SWIPE_THRESHOLD = 50f; // Minimum swipe distance for detection
     public bool isStop;
     //private float platformYPosition; // Store the player's current platform Y position
+
+    public static Player instance;
     private void Awake()
     {
         character = GetComponent<CharacterController>();
+        if(!instance)
+            instance = this;
     }
 
     private void OnEnable()
@@ -168,6 +172,15 @@ public class Player : MonoBehaviour
         {
             other.GetComponent<AudioSource>().Play();
             GameManager.Instance.SetCoins(1, other.GetComponent<SpriteRenderer>());
+        }
+        if (other.CompareTag("Coins"))
+        {
+            other.GetComponent<AudioSource>().Play();
+            GameManager.Instance.SetCoins(1, other.GetComponent<SpriteRenderer>());
+        }
+        if (other.CompareTag("Platform"))
+        {
+            Debug.Log("Hitted With Platform");
         }
 
 
