@@ -48,7 +48,7 @@ public class Obstacle : MonoBehaviour
                 obstacleDestroyCall = true;
                 if (isPlatform)
                 {
-                    DG.Tweening.DOVirtual.DelayedCall(1f, () => Destroy(gameObject));
+                    DG.Tweening.DOVirtual.DelayedCall(5f, () => Destroy(gameObject));
                 }
                 else
                 {
@@ -59,4 +59,18 @@ public class Obstacle : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        print("Trigger With: " + other.gameObject.name);
+        if (gameObject.CompareTag("Coins"))
+        {
+            Debug.Log("Trigger With: " , other.gameObject);
+
+            if (other.CompareTag("Obstacle"))
+            {
+                Destroy(gameObject);
+            }
+        }
+
+    }
 }

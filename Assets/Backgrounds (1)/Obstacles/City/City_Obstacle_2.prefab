@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9111235999010403726}
   - component: {fileID: 9111235999010403721}
   - component: {fileID: -6105465067362427786}
-  - component: {fileID: 4329405102076371160}
+  - component: {fileID: 3365611009896770332}
   m_Layer: 0
   m_Name: City_Obstacle_2
   m_TagString: Obstacle
@@ -100,15 +100,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlatform: 0
   platform: {fileID: 0}
---- !u!60 &4329405102076371160
-PolygonCollider2D:
+--- !u!65 &3365611009896770332
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9111235999010403720}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -117,70 +115,9 @@ PolygonCollider2D:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
   m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.11, y: 1.02}
-    newSize: {x: 0.5, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.375, y: -0.35999998}
-      - {x: 0.405, y: -0.32}
-      - {x: 0.42499998, y: -0.29}
-      - {x: 0.49499997, y: -0.24}
-      - {x: 0.49499997, y: -0.14999999}
-      - {x: 0.48499998, y: -0.049999997}
-      - {x: 0.42499998, y: 0}
-      - {x: 0.275, y: 0.049999997}
-      - {x: 0.16499999, y: -0.03}
-      - {x: 0.125, y: -0.12}
-      - {x: 0.074999996, y: -0.22}
-      - {x: 0.065, y: -0.29}
-      - {x: -0.035, y: -0.35999998}
-      - {x: -0.114999995, y: -0.32}
-      - {x: -0.13499999, y: -0.17}
-      - {x: -0.105, y: -0.089999996}
-      - {x: -0.125, y: 0.01}
-      - {x: -0.074999996, y: 0.099999994}
-      - {x: -0.145, y: 0.24}
-      - {x: -0.085, y: 0.29}
-      - {x: -0.125, y: 0.39}
-      - {x: -0.185, y: 0.42999998}
-      - {x: -0.21499999, y: 0.44}
-      - {x: -0.415, y: 0.44}
-      - {x: -0.45499998, y: 0.39}
-      - {x: -0.48499998, y: 0.29999998}
-      - {x: -0.465, y: 0.19}
-      - {x: -0.49499997, y: 0.099999994}
-      - {x: -0.475, y: 0.01}
-      - {x: -0.49499997, y: -0.07}
-      - {x: -0.435, y: -0.19}
-      - {x: -0.48499998, y: -0.39}
-      - {x: -0.555, y: -0.45}
-      - {x: -0.555, y: -0.48}
-      - {x: -0.53499997, y: -0.5}
-      - {x: 0.465, y: -0.5}
-      - {x: 0.48499998, y: -0.48}
-      - {x: 0.475, y: -0.45}
-      - {x: 0.33499998, y: -0.39999998}
-  m_UseDelaunayMesh: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.037283, y: 0.9423268, z: 0.2}
+  m_Center: {x: 0.036358476, y: -0.0388366, z: 0}

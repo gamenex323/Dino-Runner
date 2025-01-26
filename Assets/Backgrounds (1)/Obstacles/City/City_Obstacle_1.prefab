@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3554295633068608038}
   - component: {fileID: 3554295633068608033}
   - component: {fileID: -6884696123139720798}
-  - component: {fileID: 6173942548576356863}
+  - component: {fileID: 1404592736653761364}
   m_Layer: 0
   m_Name: City_Obstacle_1
   m_TagString: Obstacle
@@ -100,8 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlatform: 0
   platform: {fileID: 0}
---- !u!64 &6173942548576356863
-MeshCollider:
+--- !u!65 &1404592736653761364
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,7 +118,6 @@ MeshCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 1.1668445, y: 0.8535757, z: 0.2}
+  m_Center: {x: 0.09657782, y: -0.11821224, z: 0}

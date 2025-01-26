@@ -152,7 +152,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle"))
+        if (other.CompareTag("Obstacle") || other.CompareTag("Platform"))
         {
             AudioManager.instance.HitSound();
             if (isShieldActive)
@@ -166,6 +166,11 @@ public class Player : MonoBehaviour
                 // Trigger Game Over
                 //GameManager.Instance.GameOver();
                 TakeDamage(1);
+                if (other.CompareTag("Platform"))
+                {
+                    other.transform.parent.gameObject.SetActive(false);
+                        
+                }
             }
         }
         if (other.CompareTag("Coins"))
@@ -178,10 +183,7 @@ public class Player : MonoBehaviour
             other.GetComponent<AudioSource>().Play();
             GameManager.Instance.SetCoins(1, other.GetComponent<SpriteRenderer>());
         }
-        if (other.CompareTag("Platform"))
-        {
-            Debug.Log("Hitted With Platform");
-        }
+
 
 
         // Handle picking up powerups
