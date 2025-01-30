@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         character = GetComponent<CharacterController>();
-        if(!instance)
+        if (!instance)
             instance = this;
     }
 
@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         // Handle dodge duration
+        character.transform.position = new Vector3(-6, 0, 0);
         if (isStop)
             return;
         if (isDodging)
@@ -83,6 +84,9 @@ public class Player : MonoBehaviour
     {
         if (isDodging) return;
 
+        GameManager.Instance.playerSprite.sprites = GameManager.Instance.dodgeSprite;
+        AudioManager.instance.SlideSound();
+
         //Time.timeScale = 0.5f;
         isDodging = true;
         dodgeTimer = dodgeDuration;
@@ -100,6 +104,7 @@ public class Player : MonoBehaviour
 
     private void EndDodge()
     {
+        GameManager.Instance.playerSprite.sprites = GameManager.Instance.runSprite;
         //Time.timeScale = 1f;
         isDodging = false;
         character.center = new Vector3(0, 0, 0); // Reset hitbox position
@@ -140,11 +145,13 @@ public class Player : MonoBehaviour
     {
         if (character.isGrounded)
         {
+            AudioManager.instance.JumpSound();
             direction = Vector3.up * jumpForce;
             hasUsedDoubleJump = false; // Reset double jump when grounded
         }
         else if (canDoubleJump && !hasUsedDoubleJump)
         {
+            AudioManager.instance.JumpSound();
             direction = Vector3.up * jumpForce;
             hasUsedDoubleJump = true; // Mark that double jump is used
         }
@@ -169,7 +176,7 @@ public class Player : MonoBehaviour
                 if (other.CompareTag("Platform"))
                 {
                     other.transform.parent.gameObject.SetActive(false);
-                        
+
                 }
             }
         }

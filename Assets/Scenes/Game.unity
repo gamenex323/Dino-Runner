@@ -38,6 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -463,7 +464,7 @@ MonoBehaviour:
     spawnChance: 0.1
   - prefab: {fileID: 9020847862631447337, guid: ddc31007eacf9a7448a68bdd9607cc62, type: 3}
     spawnChance: 0.15
-  - prefab: {fileID: 9111235999010403720, guid: f2a24c63a70e56149a9b23d50b387306, type: 3}
+  - prefab: {fileID: 3554295633068608032, guid: f2a24c63a70e56149a9b23d50b387306, type: 3}
     spawnChance: 0.2
   - prefab: {fileID: 6134549672178375514, guid: e312a404a158b90489a7a14745139d07, type: 3}
     spawnChance: 0.22
@@ -482,8 +483,8 @@ MonoBehaviour:
     spawnChance: 0.4
   - prefab: {fileID: 9020847862631447337, guid: ab7f23b23dddf5c4f82dff1ec76e6a34, type: 3}
     spawnChance: 0.6
-  minSpawnRate: 1
-  maxSpawnRate: 1.5
+  minSpawnRate: 1.5
+  maxSpawnRate: 2
 --- !u!1 &138364167
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,7 +906,7 @@ MonoBehaviour:
     spawnChance: 0.1
   - prefab: {fileID: 9020847862631447337, guid: ddc31007eacf9a7448a68bdd9607cc62, type: 3}
     spawnChance: 0.15
-  - prefab: {fileID: 9111235999010403720, guid: c998f96c05d59704c9d875ab724990e2, type: 3}
+  - prefab: {fileID: 3554295633068608032, guid: c998f96c05d59704c9d875ab724990e2, type: 3}
     spawnChance: 0.2
   - prefab: {fileID: 6134549672178375514, guid: bd1aa9e3c2e169848a730599bdc87ee0, type: 3}
     spawnChance: 0.22
@@ -924,8 +925,8 @@ MonoBehaviour:
     spawnChance: 0.4
   - prefab: {fileID: 9020847862631447337, guid: ab7f23b23dddf5c4f82dff1ec76e6a34, type: 3}
     spawnChance: 0.6
-  minSpawnRate: 1
-  maxSpawnRate: 1.5
+  minSpawnRate: 1.5
+  maxSpawnRate: 2
 --- !u!1 &219150766
 GameObject:
   m_ObjectHideFlags: 0
@@ -7107,6 +7108,21 @@ MonoBehaviour:
   shieldAmount: {fileID: 1169917345}
   doubleJumpAmount: {fileID: 1035615805}
   runFastAmount: {fileID: 1148543894}
+  playerSprite: {fileID: 1395841400}
+  runSprite:
+  - {fileID: 1579783473, guid: d920ae83ae37c0f429223a04bd523767, type: 3}
+  - {fileID: -461679898, guid: d920ae83ae37c0f429223a04bd523767, type: 3}
+  - {fileID: 972582547, guid: d920ae83ae37c0f429223a04bd523767, type: 3}
+  - {fileID: -1181369708, guid: d920ae83ae37c0f429223a04bd523767, type: 3}
+  - {fileID: -1408847285, guid: d920ae83ae37c0f429223a04bd523767, type: 3}
+  - {fileID: -1535992313, guid: d920ae83ae37c0f429223a04bd523767, type: 3}
+  dodgeSprite:
+  - {fileID: 21300000, guid: 157c31ba5c9814346ab9508d83b5fd5e, type: 3}
+  - {fileID: 21300000, guid: 157c31ba5c9814346ab9508d83b5fd5e, type: 3}
+  - {fileID: 21300000, guid: 157c31ba5c9814346ab9508d83b5fd5e, type: 3}
+  - {fileID: 21300000, guid: 157c31ba5c9814346ab9508d83b5fd5e, type: 3}
+  - {fileID: 21300000, guid: 157c31ba5c9814346ab9508d83b5fd5e, type: 3}
+  - {fileID: 21300000, guid: 157c31ba5c9814346ab9508d83b5fd5e, type: 3}
   hitAudio: {fileID: 0}
 --- !u!4 &1501353567
 Transform:
@@ -8808,7 +8824,7 @@ MonoBehaviour:
     spawnChance: 0.1
   - prefab: {fileID: 3554295633068608032, guid: e8e410404b8b448469189f447361ab5a, type: 3}
     spawnChance: 0.15
-  - prefab: {fileID: 9111235999010403720, guid: f2a24c63a70e56149a9b23d50b387306, type: 3}
+  - prefab: {fileID: 3554295633068608032, guid: f2a24c63a70e56149a9b23d50b387306, type: 3}
     spawnChance: 0.2
   - prefab: {fileID: 6134549672178375514, guid: e312a404a158b90489a7a14745139d07, type: 3}
     spawnChance: 0.22
@@ -8827,8 +8843,8 @@ MonoBehaviour:
     spawnChance: 0.4
   - prefab: {fileID: 9020847862631447337, guid: ab7f23b23dddf5c4f82dff1ec76e6a34, type: 3}
     spawnChance: 0.6
-  minSpawnRate: 1
-  maxSpawnRate: 1.5
+  minSpawnRate: 1.5
+  maxSpawnRate: 2
 --- !u!1 &2011311728
 GameObject:
   m_ObjectHideFlags: 0

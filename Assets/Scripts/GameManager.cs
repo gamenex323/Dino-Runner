@@ -55,6 +55,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI shieldAmount;
     public TextMeshProUGUI doubleJumpAmount;
     public TextMeshProUGUI runFastAmount;
+
+    public AnimatedSprite playerSprite;
+    public Sprite[] runSprite;
+    public Sprite[] dodgeSprite;
     public AudioSource hitAudio;
     public void SetShield(int amount)
     {

@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour
     public AudioSource buttonSound;
     public AudioSource bgm;
     public AudioSource hitSound;
+    public AudioSource jumpSound;
+    public AudioSource slideSound;
 
     void Start()
     {
@@ -44,5 +46,13 @@ public class AudioManager : MonoBehaviour
     public void HitSound()
     {
         hitSound.Play();
+    }
+    public void JumpSound()
+    {
+        jumpSound.Play();
+    }
+    public void SlideSound()
+    {
+        slideSound.Play();
     }
 }
