@@ -19,6 +19,7 @@ public class FadeScreen : MonoBehaviour
     public void UpdateTheMap()
     {
         Player.instance.isStop = true;
+        GameManager.Instance.DestroyAllHurdles();
         GameManager.Instance.UpdateTheMap();
     }
 }

@@ -98,6 +98,19 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    public void DestroyAllHurdles()
+    {
+        foreach (GameObject g in instantiatedObstacles)
+        {
+            if (g)
+            {
+                if (g.GetComponent<Obstacle>().isPlatform)
+                {
+                    Destroy(g);
+                }
+            }
+        }
+    }
     public void SetRunFast(int amount)
     {
         PlayerPrefs.SetInt("RunFast", PlayerPrefs.GetInt("RunFast") + amount);
@@ -149,7 +162,7 @@ public class GameManager : MonoBehaviour
     public void NewGame()
     {
         Time.timeScale = 1;
-        DG.Tweening.DOVirtual.DelayedCall(25, () => UpdateMap());
+        DG.Tweening.DOVirtual.DelayedCall(18, () => UpdateMap());
         GameOverPanel.SetActive(false);
 
         player.Jumper.SetActive(false);
@@ -225,7 +238,7 @@ public class GameManager : MonoBehaviour
             Maps[j].SetActive(true);
             j++;
         }
-        DG.Tweening.DOVirtual.DelayedCall(25, () => UpdateMap());
+        DG.Tweening.DOVirtual.DelayedCall(18, () => UpdateMap());
     }
     void UpdateMap()
     {
