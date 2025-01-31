@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using System;
+using System.Collections.Generic;
 
 [DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
@@ -10,7 +12,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public float initialGameSpeed = 5f;
-    public float gameSpeedIncrease = 0.1f;
+    public float gameSpeedIncrease = 0.05f;
     public int totalCoins = 0;
     public int inGameCoins = 0;
     public float gameSpeed { get; private set; }
@@ -27,6 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject GameOverPanel;
     [SerializeField] private GameObject GamePausePanel;
     [SerializeField] private GameObject fadeScreen;
+
+    public List<GameObject> instantiatedObstacles;
 
     private Player player;
     private Spawner spawner;
@@ -81,7 +85,18 @@ public class GameManager : MonoBehaviour
         return PlayerPrefs.GetInt("Jump");
     }
 
-
+    public bool CheckPLatformHurdle()
+    {
+        foreach (GameObject g in instantiatedObstacles)
+        {
+            if (g)
+            {
+                if (g.GetComponent<Obstacle>().isPlatform)
+                    return true;
+            }
+        }
+        return false;
+    }
 
     public void SetRunFast(int amount)
     {

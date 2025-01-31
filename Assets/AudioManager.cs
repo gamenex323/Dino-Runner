@@ -28,10 +28,13 @@ public class AudioManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void SetAudio()
+    public void SetAudio()
     {
         buttonSound.volume = PlayerPrefs.GetFloat("Sound");
         bgm.volume = PlayerPrefs.GetFloat("Music");
+        hitSound.volume = PlayerPrefs.GetFloat("Sound");
+        jumpSound.volume = PlayerPrefs.GetFloat("Sound");
+        slideSound.volume = PlayerPrefs.GetFloat("Sound");
     }
     public void PlayClickSound()
     {

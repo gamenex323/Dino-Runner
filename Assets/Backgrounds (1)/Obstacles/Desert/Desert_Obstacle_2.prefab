@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7714102929544817557}
   m_Layer: 0
   m_Name: Desert_Obstacle_2
-  m_TagString: Obstacle
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,6 +123,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlatform: 0
   platform: {fileID: 0}
+  isbird: 0
+  birdSpeed: 0
 --- !u!114 &7714102929544817557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +132,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3554295633068608032}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a0a4a3e568691d40b504518f44a9e56, type: 3}
   m_Name: 
@@ -150,6 +152,7 @@ GameObject:
   - component: {fileID: 3076228381549419291}
   - component: {fileID: 700175252596634431}
   - component: {fileID: 1602184712516172254}
+  - component: {fileID: 6924866120936863700}
   m_Layer: 0
   m_Name: Desert_Obstacle_1
   m_TagString: Obstacle
@@ -214,7 +217,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e866f8dcde6db1145994b53813d902b1, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -260,3 +263,19 @@ MonoBehaviour:
   sprites:
   - {fileID: 21300000, guid: e866f8dcde6db1145994b53813d902b1, type: 3}
   - {fileID: 21300000, guid: 448b9ee5cafffc04bbe72f2a52fa5d05, type: 3}
+--- !u!114 &6924866120936863700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5021787524741439798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4aa01bef04456d489a93b8adc7fec01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlatform: 0
+  platform: {fileID: 0}
+  isbird: 1
+  birdSpeed: 2.5

@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     private Vector2 swipeEndPosition;
     private const float SWIPE_THRESHOLD = 50f; // Minimum swipe distance for detection
     public bool isStop;
+    public bool canDodge = true;
     //private float platformYPosition; // Store the player's current platform Y position
 
     public static Player instance;
@@ -83,6 +84,7 @@ public class Player : MonoBehaviour
     private void StartDodge()
     {
         if (isDodging) return;
+        if (!canDodge) return;
 
         GameManager.Instance.playerSprite.sprites = GameManager.Instance.dodgeSprite;
         AudioManager.instance.SlideSound();
@@ -110,7 +112,7 @@ public class Player : MonoBehaviour
         character.center = new Vector3(0, 0, 0); // Reset hitbox position
         //animator.SetBool("IsDodging", false); // Reset dodge animation state
     }
-
+    private bool hasSwipedDown = false;
     private void DetectTouchInput()
     {
         if (Input.touchCount > 0)
@@ -119,39 +121,54 @@ public class Player : MonoBehaviour
 
             if (touch.phase == TouchPhase.Began)
             {
-                swipeStartPosition = touch.position; // Store starting position of the touch
+                swipeStartPosition = touch.position; // Store the starting position
+            }
+            else if (touch.phase == TouchPhase.Moved) // Detect movement while finger is still on screen
+            {
+                Vector2 swipeDelta = touch.position - swipeStartPosition;
+
+                // Detect swipe down
+                if (swipeDelta.y < -SWIPE_THRESHOLD)
+                {
+                    StartDodge();
+                    swipeStartPosition = touch.position; // Reset to avoid multiple calls
+                    hasSwipedDown = true; // Mark that a swipe down has occurred
+                }
             }
             else if (touch.phase == TouchPhase.Ended)
             {
-                swipeEndPosition = touch.position;
-
-                Vector2 swipeDelta = swipeEndPosition - swipeStartPosition;
-
-                // Detect tap (small movement during touch)
-                if (swipeDelta.magnitude < SWIPE_THRESHOLD)
+                if (!hasSwipedDown) // Only detect jump if there was NO downward swipe
                 {
-                    PerformJump();
+                    swipeEndPosition = touch.position;
+                    Vector2 swipeDelta = swipeEndPosition - swipeStartPosition;
+
+                    // Detect tap (small movement)
+                    if (swipeDelta.magnitude < SWIPE_THRESHOLD)
+                    {
+                        PerformJump();
+                    }
                 }
-                // Detect swipe down
-                else if (swipeDelta.y < -SWIPE_THRESHOLD)
-                {
-                    StartDodge();
-                }
+
+                hasSwipedDown = false; // Reset for next input cycle
             }
         }
     }
+
+
 
     private void PerformJump()
     {
         if (character.isGrounded)
         {
-            AudioManager.instance.JumpSound();
+            if (AudioManager.instance)
+                AudioManager.instance.JumpSound();
             direction = Vector3.up * jumpForce;
             hasUsedDoubleJump = false; // Reset double jump when grounded
         }
         else if (canDoubleJump && !hasUsedDoubleJump)
         {
-            AudioManager.instance.JumpSound();
+            if (AudioManager.instance)
+                AudioManager.instance.JumpSound();
             direction = Vector3.up * jumpForce;
             hasUsedDoubleJump = true; // Mark that double jump is used
         }
@@ -161,7 +178,7 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag("Obstacle") || other.CompareTag("Platform"))
         {
-            AudioManager.instance.HitSound();
+
             if (isShieldActive)
             {
                 // Destroy obstacle if shield is active
@@ -169,15 +186,26 @@ public class Player : MonoBehaviour
             }
             else
             {
-                ShakeCamera();
-                // Trigger Game Over
-                //GameManager.Instance.GameOver();
-                TakeDamage(1);
                 if (other.CompareTag("Platform"))
                 {
+                    AudioManager.instance.HitSound();
+                    ShakeCamera();
+                    // Trigger Game Over
+                    //GameManager.Instance.GameOver();
+                    TakeDamage(1);
                     other.transform.parent.gameObject.SetActive(false);
+                    return;
 
                 }
+                if (character.isGrounded && !other.CompareTag("Platform"))
+                {
+                    AudioManager.instance.HitSound();
+                    ShakeCamera();
+                    // Trigger Game Over
+                    //GameManager.Instance.GameOver();
+                    TakeDamage(1);
+                }
+
             }
         }
         if (other.CompareTag("Coins"))
@@ -185,10 +213,9 @@ public class Player : MonoBehaviour
             other.GetComponent<AudioSource>().Play();
             GameManager.Instance.SetCoins(1, other.GetComponent<SpriteRenderer>());
         }
-        if (other.CompareTag("Coins"))
+        if (other.CompareTag("CantDodge"))
         {
-            other.GetComponent<AudioSource>().Play();
-            GameManager.Instance.SetCoins(1, other.GetComponent<SpriteRenderer>());
+            canDodge = false;
         }
 
 
@@ -212,6 +239,14 @@ public class Player : MonoBehaviour
 
         //    Destroy(other.gameObject); // Remove the powerup from the scene
         //}
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("CantDodge"))
+        {
+            canDodge = true;
+        }
     }
     public void ShakeCamera(float duration = 0.5f, float strength = 1f, int vibrato = 10, float randomness = 90f)
     {

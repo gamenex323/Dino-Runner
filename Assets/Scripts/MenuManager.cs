@@ -46,7 +46,6 @@ public class MenuManager : MonoBehaviour
             PlayerPrefs.SetFloat("Music", 1);
             PlayerPrefs.SetFloat("Sound", 1);
         }
-        LoadMusicAndSound();
     }
     public void OnClickPlay()
     {
@@ -147,8 +146,9 @@ public class MenuManager : MonoBehaviour
     }
     public void OnChangeSound(float value)
     {
-        AudioManager.instance.buttonSound.volume = value;
         PlayerPrefs.SetFloat("Sound", value);
+        AudioManager.instance.SetAudio();
+
         //jioj
     }
     public void LoadMusicAndSound()

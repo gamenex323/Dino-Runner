@@ -41,7 +41,23 @@ public class Spawner : MonoBehaviour
         {
             if (spawnChance < obj.spawnChance)
             {
+                if (obj.prefab.transform.childCount > 0)
+                {
+                    if (obj.prefab.transform.GetChild(0).GetComponent<Obstacle>())
+                    {
+                        if (obj.prefab.transform.GetChild(0).GetComponent<Obstacle>().isbird)
+                        {
+                            if (GameManager.Instance.CheckPLatformHurdle())
+                            {
+                                SpawnHurdles();
+                                return;
+                            }
+
+                        }
+                    }
+                }
                 GameObject obstacle = Instantiate(obj.prefab);
+                GameManager.Instance.instantiatedObstacles.Add(obstacle);
                 obstacle.transform.position += transform.position;
                 break;
             }
@@ -51,6 +67,7 @@ public class Spawner : MonoBehaviour
 
         Invoke(nameof(SpawnHurdles), Random.Range(minSpawnRate, maxSpawnRate));
     }
+
 
     private void SpawnCoins()
     {
