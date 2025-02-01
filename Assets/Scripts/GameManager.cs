@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public float gameSpeedIncrease = 0.05f;
     public int totalCoins = 0;
     public int inGameCoins = 0;
-    public float gameSpeed { get; private set; }
+    public float gameSpeed;
 
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] public TextMeshProUGUI coinsText;
@@ -104,10 +104,7 @@ public class GameManager : MonoBehaviour
         {
             if (g)
             {
-                if (g.GetComponent<Obstacle>().isPlatform)
-                {
-                    Destroy(g);
-                }
+                Destroy(g);
             }
         }
     }

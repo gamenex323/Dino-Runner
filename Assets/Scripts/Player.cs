@@ -158,7 +158,7 @@ public class Player : MonoBehaviour
 
     private void PerformJump()
     {
-        if (character.isGrounded)
+        if (character.isGrounded || !canDodge)
         {
             if (AudioManager.instance)
                 AudioManager.instance.JumpSound();

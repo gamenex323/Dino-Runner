@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3299315452349763033}
   m_Layer: 0
   m_Name: Hurdle
-  m_TagString: Obstacle
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 932750399069900578}
   m_Layer: 0
   m_Name: Hurdle (1)
-  m_TagString: Obstacle
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
