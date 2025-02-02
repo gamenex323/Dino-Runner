@@ -21,6 +21,8 @@ public class Spawner : MonoBehaviour
     public CoinSpawnableObject[] coinsObjects;
     public float minSpawnRate = 1f;
     public float maxSpawnRate = 2f;
+    public float minSpawnRateCoins = 1f;
+    public float maxSpawnRateCoins = 2f;
 
     private void OnEnable()
     {
@@ -85,7 +87,7 @@ public class Spawner : MonoBehaviour
             spawnChance -= obj.spawnChance;
         }
 
-        Invoke(nameof(SpawnCoins), Random.Range(minSpawnRate, maxSpawnRate));
+        Invoke(nameof(SpawnCoins), Random.Range(minSpawnRateCoins, maxSpawnRateCoins));
     }
 
 

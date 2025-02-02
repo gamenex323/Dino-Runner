@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource hitSound;
     public AudioSource jumpSound;
     public AudioSource slideSound;
+    public AudioClip coinCollect;
 
     void Start()
     {
@@ -57,5 +58,13 @@ public class AudioManager : MonoBehaviour
     public void SlideSound()
     {
         slideSound.Play();
+    }
+    public void CoinCollectSound()
+    {
+        GameObject audioObject = new GameObject("Coin Sound");
+        AudioSource audioSource = audioObject.AddComponent<AudioSource>();
+        audioSource.clip = coinCollect;
+        audioSource.Play();
+        Destroy(audioObject, coinCollect.length);
     }
 }

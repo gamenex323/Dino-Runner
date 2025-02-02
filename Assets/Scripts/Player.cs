@@ -112,7 +112,7 @@ public class Player : MonoBehaviour
         character.center = new Vector3(0, 0, 0); // Reset hitbox position
         //animator.SetBool("IsDodging", false); // Reset dodge animation state
     }
-    private bool hasSwipedDown = false;
+    public bool hasSwipedDown = false;
     private void DetectTouchInput()
     {
         if (Input.touchCount > 0)
@@ -122,6 +122,9 @@ public class Player : MonoBehaviour
             if (touch.phase == TouchPhase.Began)
             {
                 swipeStartPosition = touch.position; // Store the starting position
+
+                // Detect tap immediately on touch
+                PerformJump();
             }
             else if (touch.phase == TouchPhase.Moved) // Detect movement while finger is still on screen
             {
@@ -137,22 +140,16 @@ public class Player : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Ended)
             {
-                if (!hasSwipedDown) // Only detect jump if there was NO downward swipe
+                if (!hasSwipedDown) // Reset for the next input cycle
                 {
                     swipeEndPosition = touch.position;
-                    Vector2 swipeDelta = swipeEndPosition - swipeStartPosition;
-
-                    // Detect tap (small movement)
-                    if (swipeDelta.magnitude < SWIPE_THRESHOLD)
-                    {
-                        PerformJump();
-                    }
                 }
 
-                hasSwipedDown = false; // Reset for next input cycle
+                hasSwipedDown = false;
             }
         }
     }
+
 
 
 
@@ -188,30 +185,29 @@ public class Player : MonoBehaviour
             {
                 if (other.CompareTag("Platform"))
                 {
-                    AudioManager.instance.HitSound();
-                    ShakeCamera();
-                    // Trigger Game Over
-                    //GameManager.Instance.GameOver();
-                    TakeDamage(1);
+                    DoDamage(other);
                     other.transform.parent.gameObject.SetActive(false);
+                    return;
+
+                }
+                if (hasSwipedDown)
+                {
+                    DoDamage(other);
                     return;
 
                 }
                 if (character.isGrounded && !other.CompareTag("Platform"))
                 {
-                    AudioManager.instance.HitSound();
-                    ShakeCamera();
-                    // Trigger Game Over
-                    //GameManager.Instance.GameOver();
-                    TakeDamage(1);
+                    DoDamage(other);
                 }
 
             }
         }
         if (other.CompareTag("Coins"))
         {
-            other.GetComponent<AudioSource>().Play();
+            AudioManager.instance.CoinCollectSound();
             GameManager.Instance.SetCoins(1, other.GetComponent<SpriteRenderer>());
+            Destroy(other.gameObject);
         }
         if (other.CompareTag("CantDodge"))
         {
@@ -240,7 +236,16 @@ public class Player : MonoBehaviour
         //    Destroy(other.gameObject); // Remove the powerup from the scene
         //}
     }
+    void DoDamage(Collider other)
+    {
+        AudioManager.instance.HitSound();
+        ShakeCamera();
+        // Trigger Game Over
+        //GameManager.Instance.GameOver();
+        TakeDamage(1);
 
+
+    }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("CantDodge"))

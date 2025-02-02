@@ -41,7 +41,6 @@ public class Obstacle : MonoBehaviour
                 return;
             }
         }
-
         if (isbird)
         {
             transform.position += birdSpeed * Time.deltaTime * Vector3.left;
@@ -50,8 +49,6 @@ public class Obstacle : MonoBehaviour
         {
             transform.position += GameManager.Instance.gameSpeed * Time.deltaTime * Vector3.left;
         }
-
-
         if (transform.position.x < leftEdge)
         {
 
@@ -67,7 +64,6 @@ public class Obstacle : MonoBehaviour
                     Destroy(gameObject);
                 }
             }
-
         }
     }
 
@@ -79,6 +75,10 @@ public class Obstacle : MonoBehaviour
             Debug.Log("Trigger With: ", other.gameObject);
 
             if (other.CompareTag("Obstacle"))
+            {
+                Destroy(gameObject);
+            }
+            if (other.CompareTag("Platform"))
             {
                 Destroy(gameObject);
             }

@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -179,6 +178,7 @@ MonoBehaviour:
   dodgeDuration: 0.5
   dodgeSpeed: 10
   isStop: 0
+  canDodge: 1
 --- !u!143 &148278
 CharacterController:
   m_ObjectHideFlags: 0
@@ -478,13 +478,15 @@ MonoBehaviour:
   - prefab: {fileID: 9020847862631447337, guid: ab7f23b23dddf5c4f82dff1ec76e6a34, type: 3}
     spawnChance: 0.1
   - prefab: {fileID: 9020847862631447337, guid: ab7f23b23dddf5c4f82dff1ec76e6a34, type: 3}
-    spawnChance: 0.5
+    spawnChance: 0.05
   - prefab: {fileID: 9020847862631447337, guid: ab7f23b23dddf5c4f82dff1ec76e6a34, type: 3}
-    spawnChance: 0.4
+    spawnChance: 0.15
   - prefab: {fileID: 9020847862631447337, guid: ab7f23b23dddf5c4f82dff1ec76e6a34, type: 3}
-    spawnChance: 0.6
+    spawnChance: 0.2
   minSpawnRate: 1.5
   maxSpawnRate: 2
+  minSpawnRateCoins: 0.8
+  maxSpawnRateCoins: 1.2
 --- !u!1 &138364167
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,13 +922,15 @@ MonoBehaviour:
   - prefab: {fileID: 9020847862631447337, guid: ab7f23b23dddf5c4f82dff1ec76e6a34, type: 3}
     spawnChance: 0.1
   - prefab: {fileID: 9020847862631447337, guid: add0f3525275c1a42bbb66a44925d60b, type: 3}
-    spawnChance: 0.5
+    spawnChance: 0.05
   - prefab: {fileID: 9020847862631447337, guid: b615fb2b55f6be74a8694f6691931f48, type: 3}
-    spawnChance: 0.4
+    spawnChance: 0.15
   - prefab: {fileID: 9020847862631447337, guid: ab7f23b23dddf5c4f82dff1ec76e6a34, type: 3}
-    spawnChance: 0.6
+    spawnChance: 0.2
   minSpawnRate: 1.5
   maxSpawnRate: 2
+  minSpawnRateCoins: 0.8
+  maxSpawnRateCoins: 1.2
 --- !u!1 &219150766
 GameObject:
   m_ObjectHideFlags: 0
@@ -7086,6 +7090,7 @@ MonoBehaviour:
   gameSpeedIncrease: 0.05
   totalCoins: 0
   inGameCoins: 0
+  gameSpeed: 0
   scoreText: {fileID: 550957956}
   coinsText: {fileID: 770608608}
   scoreGameOverText: {fileID: 1248237595}
@@ -7099,6 +7104,7 @@ MonoBehaviour:
   GameOverPanel: {fileID: 1191124444}
   GamePausePanel: {fileID: 699220784}
   fadeScreen: {fileID: 1944694270}
+  instantiatedObstacles: []
   Maps:
   - {fileID: 788747846}
   - {fileID: 185517233}
@@ -8838,13 +8844,15 @@ MonoBehaviour:
   - prefab: {fileID: 9020847862631447337, guid: ab7f23b23dddf5c4f82dff1ec76e6a34, type: 3}
     spawnChance: 0.1
   - prefab: {fileID: 9020847862631447337, guid: ab7f23b23dddf5c4f82dff1ec76e6a34, type: 3}
-    spawnChance: 0.5
+    spawnChance: 0.05
   - prefab: {fileID: 9020847862631447337, guid: ab7f23b23dddf5c4f82dff1ec76e6a34, type: 3}
-    spawnChance: 0.4
+    spawnChance: 0.15
   - prefab: {fileID: 9020847862631447337, guid: ab7f23b23dddf5c4f82dff1ec76e6a34, type: 3}
-    spawnChance: 0.6
+    spawnChance: 0.2
   minSpawnRate: 1.5
   maxSpawnRate: 2
+  minSpawnRateCoins: 0.8
+  maxSpawnRateCoins: 1.2
 --- !u!1 &2011311728
 GameObject:
   m_ObjectHideFlags: 0

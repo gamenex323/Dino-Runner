@@ -368,7 +368,7 @@ public class GameManager : MonoBehaviour
     {
         if (coinSpriteS)
         {
-            MoveSprite(coinSpriteS);
+            //MoveSprite(coinSpriteS);
             inGameCoins++;
 
         }
